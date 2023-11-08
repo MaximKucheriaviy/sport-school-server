@@ -1,14 +1,10 @@
 const express = require("express");
-const addNews = require("../contollsers/addNews");
+const { addNews, getAllNews } = require("../contollsers");
 const { controllerWraper, uploader } = require("../middlewares");
 
 const newsRouter = express.Router();
 
-newsRouter.post(
-  "/",
-  uploader.single("poster"),
-  //   uploader.array("galery"),
-  controllerWraper(addNews)
-);
+newsRouter.post("/", uploader.array("galery"), controllerWraper(addNews));
+newsRouter.get("/", controllerWraper(getAllNews));
 
 module.exports = newsRouter;
